@@ -4,24 +4,28 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+// store provider for mobx
+import { StoreProvider } from "./util/useStore";
 
 export default function App() {
   return (
-    <Router>
-      {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-      <Navbar />
-      <Switch>
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-        <Route path="/register">
-          <RegisterPage />
-        </Route>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+    <StoreProvider>
+      <Router>
+        {/* A <Switch> looks through its children <Route>s and
+              renders the first one that matches the current URL. */}
+        <Navbar />
+        <Switch>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+          <Route path="/register">
+            <RegisterPage />
+          </Route>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </StoreProvider>
   );
 }
