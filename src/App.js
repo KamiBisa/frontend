@@ -14,7 +14,7 @@ export default function App() {
     <Router>
       {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-      {/* <Navbar /> */}
+      <Navbar />
       <Switch>
         <Route path="/context-example">
           <ContextExample />
