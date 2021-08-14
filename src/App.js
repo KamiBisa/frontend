@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import ContextExample from './pages/ContextExample'
 import DonationPage from './pages/DonationPage'
+import GiveDonationPage from './pages/GiveDonationPage'
 import Home from './pages/Home'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
@@ -23,6 +24,9 @@ export default function App() {
         </Route>
         <Route path="/donation">
           <DonationPage />
+        </Route>
+        <Route path="/give-donation">
+          <GiveDonationPage />
         </Route>
         <Route path="/login">
           <LoginPage />
