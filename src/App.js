@@ -2,8 +2,10 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import ContextExample from './pages/ContextExample'
+import DonationPage from './pages/DonationPage'
 import Home from './pages/Home'
 import LoginPage from './pages/LoginPage'
+import ProfilePage from './pages/ProfilePage'
 import RegisterPage from './pages/RegisterPage'
 
 export default function App() {
@@ -15,6 +17,12 @@ export default function App() {
       <Switch>
         <Route path="/context-example">
           <ContextExample />
+        </Route>
+        <Route path="/profile">
+          <ProfilePage />
+        </Route>
+        <Route path="/donation">
+          <DonationPage />
         </Route>
         <Route path="/login">
           <LoginPage />
