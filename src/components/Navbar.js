@@ -8,6 +8,10 @@ import {
   Link,
   Input,
   border,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
@@ -70,13 +74,22 @@ const Navbar = () => {
             />
           </Box>
           <Box d={{ md: 'none' }} pointerEvents={{ md: 'none' }}>
-            <GiHamburgerMenu
-              color="rgba(160, 158, 158, 0.89)"
-              fontSize="22px"
-              onClick={() => {
-                setClickBar(!clickBar)
-              }}
-            />
+            <Menu>
+              <MenuButton>
+                <GiHamburgerMenu
+                  color="rgba(160, 158, 158, 0.89)"
+                  fontSize="22px"
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={() => history.push('/login')}>
+                  Login
+                </MenuItem>
+                <MenuItem onClick={() => history.push('/register')}>
+                  Register
+                </MenuItem>
+              </MenuList>
+            </Menu>
           </Box>
           <Box
             w={{ base: '93%', md: 'auto' }}
@@ -86,7 +99,7 @@ const Navbar = () => {
             borderRadius="10px"
             zIndex="1"
             transition="0.5s"
-            h={{ base: clickBar ? '200px' : '0', md: '0px' }}
+            h={{ base: clickBar ? 'auto' : '0', md: '0px' }}
             boxShadow="0 0 5px rgba(0,0,0,.3)"
             marginTop={{ base: '270px', md: '40px' }}
             d={{ base: clickBar ? 'block' : 'absolute', md: 'flex' }}
@@ -95,13 +108,9 @@ const Navbar = () => {
             <Stack
               d={{ base: clickBar ? 'flex' : 'none', md: 'flex' }}
               transition="2s"
-              lineHeight={{ base: '20px', md: '35px' }}
               alignItems="flex-end"
               flexDirection={{ base: 'column', md: 'row-reverse' }}
             >
-              <NavbarItem d={{ md: 'none' }} lineHeight="30px">
-                KamiBisa
-              </NavbarItem>
               <NavbarItem
                 borderRadius={{ md: '8px' }}
                 onClick={() => history.push('./login')}
@@ -113,11 +122,7 @@ const Navbar = () => {
                   base: { color: 'white', bgColor: 'white', border: 'none' },
                   md: { bgColor: '#F1f1f1' },
                 }}
-                bgColor={{ base: '#FB4B5E', md: '#FAFAFA' }}
                 borderRadius="8px"
-                lineHeight="35px"
-                w={{ base: '93%' }}
-                color={{ base: 'white', md: '#45545b!important' }}
                 onClick={() => history.push('./register')}
               >
                 Register
