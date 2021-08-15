@@ -61,7 +61,6 @@ export default function GiveDonationPage() {
           <Text fontSize="xl">Jumlah Donasi</Text>
           <Text fontWeight="bold">Rp. 100.000</Text>
         </Stack>
-        <Checkbox>Donasi sebagai anonymous</Checkbox>
       </StackBox>
       <StackBox>
         <Button colorScheme="green" borderRadius="20">

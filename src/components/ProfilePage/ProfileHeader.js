@@ -21,14 +21,17 @@ export default function ProfileHeader() {
           <Text fontSize="3xl">First Last</Text>
           <Text>email@example.com &bull; username</Text>
         </Stack>
-        <Stack spacing={10} isInline bg="blue.200" p={5} borderRadius="15px">
+        <Stack
+          spacing={10}
+          isInline
+          bg="blue.200"
+          py={5}
+          px={20}
+          borderRadius="15px"
+        >
           <Stack>
             <Text>Dana didonasikan</Text>
             <Text fontSize="3xl">Rp. 0,-</Text>
-          </Stack>
-          <Stack>
-            <Text>Pasien didonasikan</Text>
-            <Text fontSize="3xl">0</Text>
           </Stack>
         </Stack>
       </Stack>

@@ -43,10 +43,9 @@ export default function DonationHeader() {
             </Box>
           </Stack>
           <Stack isInline w="100%" spacing={50}>
-            <Button colorScheme="green" w="50%">
+            <Button colorScheme="green" w="100%">
               Donasikan
             </Button>
-            <Button w="50%">Share di Facebook</Button>
           </Stack>
         </Stack>
       </Stack>
