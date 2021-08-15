@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import {
   Box,
   Text,
@@ -6,23 +7,28 @@ import {
   FormControl,
   FormLabel,
   Button,
-} from '@chakra-ui/react';
-import { Heading } from '@chakra-ui/react';
-import React, { useState } from 'react';
+} from '@chakra-ui/react'
+import { Heading } from '@chakra-ui/react'
+import { useHistory } from 'react-router-dom'
 
 export default function RegisterPage() {
+  const history = useHistory()
+
   const [person, setPerson] = useState({
     fullName: '',
-    noTelp: '',
     email: '',
     password: '',
-  });
+  })
 
   const handleChange = e => {
-    const { name, value } = e.target;
-    setPerson({ ...person, [name]: value });
-  };
+    const { name, value } = e.target
+    setPerson({ ...person, [name]: value })
+  }
 
+  const ChangeHistory = () => {
+    const name = person.fullName
+    console.log(name)
+  }
   return (
     <>
       <Box
@@ -30,21 +36,19 @@ export default function RegisterPage() {
         h="calc(100vh - 65px)"
         display="flex"
         w="100%"
-        // w={{ base: "93%", md: "50%" }}
         justifyContent="center"
         alignItems="center"
         overflow="hidden"
       >
         <Box
           w={{ base: '93%', md: '50%', xl: '40%' }}
-          h="420px"
+          h="380px"
           boxShadow=" 0 1px 10px rgba(0,0,0,.1)"
           borderRadius="20px"
         >
           <Box
             w="100%"
-            // w={{ base: "93%", md: "50%" }}
-            h="360px"
+            h="320px"
             bgColor="white"
             d="flex"
             flexDirection="column"
@@ -57,11 +61,11 @@ export default function RegisterPage() {
             <Box h="100px">
               <Heading
                 as="h3"
-                fontFamily="bloggersansreg"
+                fontFamily="sans-serif"
                 fontSize="25px"
                 fontWeight="bold"
               >
-                Sign In
+                Sign Up
               </Heading>
             </Box>
             <Box
@@ -85,15 +89,6 @@ export default function RegisterPage() {
                 </Box>
                 <Box marginBottom="10px">
                   <Input
-                    type="Phone Number"
-                    name="noTelp"
-                    value={person.noTelp}
-                    onChange={handleChange}
-                    placeholder="Phone Number"
-                  ></Input>
-                </Box>
-                <Box marginBottom="10px">
-                  <Input
                     type="email"
                     name="email"
                     value={person.email}
@@ -112,7 +107,15 @@ export default function RegisterPage() {
                 </Box>
               </FormControl>
               <Box>
-                <Button w="100%" borderRadius="100px">
+                <Button
+                  w="100%"
+                  borderRadius="100px"
+                  disabled={
+                    !person.fullName && !person.email && !person.password
+                      ? true
+                      : false
+                  }
+                >
                   Masuk
                 </Button>
               </Box>
@@ -127,14 +130,19 @@ export default function RegisterPage() {
             h="60px"
           >
             <Text>
-              Not have an Account ?{' '}
-              <Link src="#" color="#3A99D8" _hover={{ color: 'blue' }}>
-                Sign Up
+              already have an Account ?{' '}
+              <Link
+                src="#"
+                color="#3A99D8"
+                _hover={{ color: 'blue' }}
+                onClick={() => history.push('./login')}
+              >
+                Sign In
               </Link>
             </Text>
           </Box>
         </Box>
       </Box>
     </>
-  );
+  )
 }

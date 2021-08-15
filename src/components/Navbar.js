@@ -8,9 +8,10 @@ import {
   Link,
   Input,
   border,
-} from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { GiHamburgerMenu } from 'react-icons/gi';
+} from '@chakra-ui/react'
+import React, { useState } from 'react'
+import { GiHamburgerMenu } from 'react-icons/gi'
+import { useHistory } from 'react-router-dom'
 
 const NavbarItem = ({ children, ...props }) => {
   return (
@@ -18,9 +19,9 @@ const NavbarItem = ({ children, ...props }) => {
       w={{ base: '95%', md: '100px' }}
       h="40px"
       _hover={{
-        md: {bgColor:"#F1f1f1"}
+        md: { bgColor: '#F1f1f1' },
       }}
-      textAlign={{md:"center"}}
+      textAlign={{ md: 'center' }}
       color="#45545b!important"
       boxShadow={{ base: ' 0 1px 0px rgba(0,0,0,.1)', md: 'none' }}
       {...props}
@@ -29,12 +30,13 @@ const NavbarItem = ({ children, ...props }) => {
         <Text>{children}</Text>
       </Link>
     </Box>
-  );
-};
+  )
+}
 
 const Navbar = () => {
-  const [clickBar, setClickBar] = useState(false);
+  const [clickBar, setClickBar] = useState(false)
 
+  const history = useHistory()
   return (
     <>
       <Box w="100%" h="50px">
@@ -72,25 +74,27 @@ const Navbar = () => {
               color="rgba(160, 158, 158, 0.89)"
               fontSize="22px"
               onClick={() => {
-                setClickBar(!clickBar);
+                setClickBar(!clickBar)
               }}
             />
           </Box>
           <Box
-            h={{ base: '200px', md: '0px' }}
             w={{ base: '93%', md: 'auto' }}
             position={{ base: 'fixed', md: 'unset' }}
             bgColor="white"
             left="3.5%"
             borderRadius="10px"
             zIndex="1"
+            transition="0.5s"
+            h={{ base: clickBar ? '200px' : '0', md: '0px' }}
             boxShadow="0 0 5px rgba(0,0,0,.3)"
             marginTop={{ base: '270px', md: '40px' }}
-            d={{ base: clickBar ? 'block' : 'none', md: 'flex' }}
+            d={{ base: clickBar ? 'block' : 'absolute', md: 'flex' }}
             flexDirection={{ md: 'row-reverse' }}
           >
             <Stack
-              d="flex"
+              d={{ base: clickBar ? 'flex' : 'none', md: 'flex' }}
+              transition="2s"
               lineHeight={{ base: '20px', md: '35px' }}
               alignItems="flex-end"
               flexDirection={{ base: 'column', md: 'row-reverse' }}
@@ -98,26 +102,32 @@ const Navbar = () => {
               <NavbarItem d={{ md: 'none' }} lineHeight="30px">
                 KamiBisa
               </NavbarItem>
-              <NavbarItem borderRadius={{md:"8px"}} >Sign In</NavbarItem>
+              <NavbarItem
+                borderRadius={{ md: '8px' }}
+                onClick={() => history.push('./login')}
+              >
+                Sign In
+              </NavbarItem>
               <NavbarItem
                 _hover={{
                   base: { color: 'white', bgColor: 'white', border: 'none' },
-                  md: {bgColor:"#F1f1f1"}
+                  md: { bgColor: '#F1f1f1' },
                 }}
                 bgColor={{ base: '#FB4B5E', md: '#FAFAFA' }}
                 borderRadius="8px"
                 lineHeight="35px"
                 w={{ base: '93%' }}
                 color={{ base: 'white', md: '#45545b!important' }}
+                onClick={() => history.push('./register')}
               >
-                Sign Up
+                Register
               </NavbarItem>
             </Stack>
           </Box>
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
