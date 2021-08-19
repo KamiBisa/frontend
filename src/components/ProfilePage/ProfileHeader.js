@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, Image, Stack, Text } from '@chakra-ui/react'
+import { Avatar, Box, Button, Flex, Image, Stack, Text } from '@chakra-ui/react'
 
 export default function ProfileHeader() {
   return (
@@ -25,13 +25,15 @@ export default function ProfileHeader() {
           spacing={10}
           isInline
           bg="blue.200"
-          py={5}
-          px={20}
+          p={4}
+          justifyContent="center"
+          minW="300px"
           borderRadius="15px"
         >
           <Stack>
-            <Text>Dana didonasikan</Text>
-            <Text fontSize="3xl">Rp. 0,-</Text>
+            <Text>E - Wallet</Text>
+            <Text fontSize="3xl">Rp. 100.000,-</Text>
+            <Button colorScheme="blue">Top up</Button>
           </Stack>
         </Stack>
       </Stack>

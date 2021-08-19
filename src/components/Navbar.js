@@ -9,6 +9,7 @@ import {
   MenuList,
   MenuItem,
   Button,
+  HStack,
 } from '@chakra-ui/react'
 import React from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
@@ -28,36 +29,20 @@ const Navbar = () => {
           height="65px"
           display="flex"
           alignItems="center"
-          justifyContent="space-around"
+          justifyContent="space-between"
+          px={{ base: 10, md: '10vw' }}
+          shadow="lg"
         >
           <Text
             fontSize="xl"
             fontWeight="bold"
             onClick={() => history.push('/')}
             color="blue.500"
-            d={{ base: 'none', md: 'block' }}
             cursor="pointer"
           >
             KamiBisa
           </Text>
-          <Box
-            w="60%"
-            display="flex"
-            justifyContent="flex-end"
-            borderRadius="100px"
-            h="45px"
-            bgColor="#EAF3F9"
-            alignItems="center"
-          >
-            <Input
-              placeholder="Ingin bantu siapa hari ini ? "
-              borderRadius="100px"
-              w="90%"
-              h="45px"
-              border="none"
-              _focus={{ outline: 'none', border: 'none' }}
-            />
-          </Box>
+
           <Box d={{ md: 'none' }} pointerEvents={{ md: 'none' }}>
             <Menu>
               <MenuButton>
@@ -77,20 +62,22 @@ const Navbar = () => {
             </Menu>
           </Box>
 
-          <Button
-            variant="ghost"
-            d={{ base: 'none', md: 'block' }}
-            onClick={() => history.push('/login')}
-          >
-            Sign In
-          </Button>
-          <Button
-            variant="ghost"
-            d={{ base: 'none', md: 'block' }}
-            onClick={() => history.push('/register')}
-          >
-            Register
-          </Button>
+          <HStack d={{ base: 'none', md: 'flex' }}>
+            <Button
+              variant="ghost"
+              d={{ base: 'none', md: 'block' }}
+              onClick={() => history.push('/login')}
+            >
+              Sign In
+            </Button>
+            <Button
+              variant="ghost"
+              d={{ base: 'none', md: 'block' }}
+              onClick={() => history.push('/register')}
+            >
+              Register
+            </Button>
+          </HStack>
         </Box>
       </Box>
     </>

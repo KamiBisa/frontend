@@ -23,7 +23,27 @@ export default function App() {
           <ProfilePage />
         </Route>
         <Route path="/donation">
-          <DonationPage />
+          <DonationPage
+            title="Saling membantu untuk indonesia sehat"
+            fundraiserName="KamiBisa"
+            donaturCount={21}
+            amount={1700000}
+            goal={10000000}
+            imageUrl="https://redaksiindonesia.com/wp-content/uploads/2020/01/Donasi.jpg"
+            desc="
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe deleniti
+        dicta dolorem dignissimos quaerat ad nulla, quidem nihil nam inventore
+        minima velit mollitia iste numquam dolorum autem. Molestiae tempore
+        commodi soluta ea quo, reprehenderit accusantium dolorum voluptatibus
+        quam id totam rem ipsa iusto possimus asperiores debitis consequuntur
+        quas? Voluptates veritatis, a et placeat consequuntur quis. Labore,
+        tempore hic. Quod beatae sapiente eaque quibusdam nostrum odit debitis
+        atque magni eum soluta delectus repudiandae fugiat quaerat a aperiam
+        impedit fugit, architecto asperiores. Itaque ratione at eius ex dolore
+        doloremque ad vel. Labore rerum eveniet culpa perspiciatis reiciendis
+        ipsam, veniam modi! Laudantium, ad.
+      "
+          />
         </Route>
         <Route path="/give-donation">
           <GiveDonationPage />
