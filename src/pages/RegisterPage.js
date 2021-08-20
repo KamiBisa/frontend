@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Box,
   Text,
@@ -10,14 +10,20 @@ import {
 } from '@chakra-ui/react'
 import { Heading } from '@chakra-ui/react'
 import { useHistory } from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux';
+import {register} from './../redux/actions/authActions';
 
 export default function RegisterPage() {
   const history = useHistory()
+  const dispatch = useDispatch();
+  const {auth} = useSelector(state => state);
 
   const [person, setPerson] = useState({
     fullName: '',
     email: '',
+    username: '',
     password: '',
+    role: 'donor'
   })
 
   const handleChange = e => {
@@ -25,10 +31,17 @@ export default function RegisterPage() {
     setPerson({ ...person, [name]: value })
   }
 
-  const ChangeHistory = () => {
-    const name = person.fullName
-    console.log(name)
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch(register({...person, fullname: person.fullName}));
   }
+
+  useEffect(() => {
+    if (auth.user) {
+      history.push('/');
+    }
+  }, [auth, history]);
+
   return (
     <>
       <Box
@@ -89,6 +102,15 @@ export default function RegisterPage() {
                 </Box>
                 <Box marginBottom="10px">
                   <Input
+                    type="username"
+                    name="username"
+                    value={person.username}
+                    onChange={handleChange}
+                    placeholder="Username"
+                  ></Input>
+                </Box>
+                <Box marginBottom="10px">
+                  <Input
                     type="email"
                     name="email"
                     value={person.email}
@@ -105,16 +127,21 @@ export default function RegisterPage() {
                     placeholder="Password"
                   ></Input>
                 </Box>
+                <input type="radio" name='role' value='donor' onChange={handleChange} />
+                <label>donor</label>
+                <input type="radio" name='role' value='fundraiser' onChange={handleChange} />
+                <label>fundraiser</label>
               </FormControl>
               <Box>
                 <Button
                   w="100%"
                   borderRadius="100px"
                   disabled={
-                    !person.fullName && !person.email && !person.password
+                    !person.fullName || !person.email || !person.password || !person.username
                       ? true
                       : false
                   }
+                  onClick={handleSubmit}
                 >
                   Masuk
                 </Button>

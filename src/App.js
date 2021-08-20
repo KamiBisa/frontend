@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import ContextExample from './pages/ContextExample'
@@ -8,8 +8,18 @@ import Home from './pages/Home'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
 import RegisterPage from './pages/RegisterPage'
+import {useDispatch} from 'react-redux';
+import {userInfo} from './redux/actions/authActions';
+import CreateDonationProgram from './pages/CreateDonationProgram'
+import ProtectedRoute from './ProtectedRoute';
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(userInfo());
+  }, [dispatch]);
+  
   return (
     <Router>
       {/* A <Switch> looks through its children <Route>s and
@@ -57,6 +67,7 @@ export default function App() {
         <Route path="/" exact>
           <Home />
         </Route>
+        <ProtectedRoute isFundraiser path='/program/create' exact component={CreateDonationProgram} />
       </Switch>
     </Router>
   )

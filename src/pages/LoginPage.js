@@ -12,18 +12,33 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { Heading } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import {useSelector, useDispatch} from 'react-redux';
+import {login} from './../redux/actions/authActions';
 
 const LoginPage = () => {
   const history = useHistory()
+  const dispatch = useDispatch();
+  const {auth} = useSelector(state => state);
 
-  const [person, setPerson] = useState({ email: '', password: '' })
+  const [person, setPerson] = useState({ username: '', password: '' })
 
   const handleChange = e => {
     const { name, value } = e.target
     setPerson({ ...person, [name]: value })
   }
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch(login(person));
+  }
+
+  useEffect(() => {
+    if (auth.user) {
+      history.push("/");
+    }
+  }, [history, auth]);
 
   return (
     <>
@@ -76,12 +91,12 @@ const LoginPage = () => {
                 <FormLabel htmlFor="email"></FormLabel>
                 <Box marginBottom="10px">
                   <Input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={person.email}
+                    type="username"
+                    id="username"
+                    name="username"
+                    value={person.username}
                     onChange={handleChange}
-                    placeholder="email/phone number"
+                    placeholder="Username"
                     autoComplete="off"
                   ></Input>
                 </Box>
@@ -98,7 +113,7 @@ const LoginPage = () => {
                 </Box>
               </FormControl>
               <Box>
-                <Button w="100%" borderRadius="100px">
+                <Button w="100%" borderRadius="100px" type="submit" onClick={handleSubmit}>
                   Masuk
                 </Button>
               </Box>

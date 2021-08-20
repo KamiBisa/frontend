@@ -4,11 +4,14 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
+import DataProvider from './redux/store';
 
 ReactDOM.render(
   <StrictMode>
     <ChakraProvider>
-      <App/>
+      <DataProvider>
+        <App/>
+      </DataProvider>
     </ChakraProvider>
   </StrictMode>,
   document.getElementById('root')
