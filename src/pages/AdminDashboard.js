@@ -122,7 +122,6 @@ export default function AdminDashboard() {
             Verify {type[0].toUpperCase() + type.slice(1)}
           </Text>
         </Stack>
-
         <Box w="100%" maxW={{ base: '90vw', xl: '80vw' }} overflowX="auto">
           <Table
             variant="simple"

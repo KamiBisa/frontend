@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
 import RegisterPage from './pages/RegisterPage'
 import AdminDashboard from './pages/AdminDashboard'
+import AdminPage from './pages/AdminPage'
 
 import ProtectedRoute from './components/Utilities/ProtectedRoute'
 import GuestRoute from './components/Utilities/GuestRoute'
@@ -20,6 +21,7 @@ export default function App() {
       <Switch>
         <ProtectedRoute path="/profile" component={ProfilePage} />
         <Route path="/admin/:type" component={AdminDashboard} />
+        <Route path="/admin" component={AdminPage} exact />
         <Route path="/donation/:id" component={DonationPage} />
         <Route path="/give-donation" component={GiveDonationPage} />
         <GuestRoute path="/login" component={LoginPage} />
