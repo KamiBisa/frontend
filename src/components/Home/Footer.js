@@ -1,4 +1,4 @@
-import { Image, Stack, Text, HStack, Box } from '@chakra-ui/react'
+import { Stack, Text, Box } from '@chakra-ui/react'
 export default function Footer() {
   return (
     <Stack

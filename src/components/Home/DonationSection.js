@@ -8,12 +8,25 @@ import {
   Text,
   HStack,
 } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
+import donationService from '../../services/donationService'
 import DonationCard from '../DonationCard'
 
 export default function DonationSection() {
+  const [donations, setDonations] = useState([])
+  useEffect(() => {
+    donationService.getAll().then(data => {
+      setDonations(data.donation_program)
+    })
+  }, [])
   return (
-    <Stack px={{ base: 5, md: '10vw' }} py={10} bg="#f0f0f0">
-      <Text fontSize={{ base: 'xl', md: '3xl' }} fontWeight="bold" p={4}>
+    <Stack px={{ base: 5, md: '10vw' }} py={8} bg="kamibisa.bg">
+      <Text
+        fontSize={{ base: 'xl', md: '3xl' }}
+        fontWeight="bold"
+        p={4}
+        color="kamibisa.text"
+      >
         Campaign Kita
       </Text>
       <HStack
@@ -26,46 +39,18 @@ export default function DonationSection() {
         }}
         p={4}
       >
-        <DonationCard
-          title="Saling membantu untuk indonesia sehat"
-          fundraiserName="KamiBisa"
-          donaturCount={21}
-          amount={1700000}
-          goal={10000000}
-          imageUrl="https://redaksiindonesia.com/wp-content/uploads/2020/01/Donasi.jpg"
-        />
-        <DonationCard
-          title="Saling membantu untuk indonesia sehat"
-          fundraiserName="KamiBisa"
-          donaturCount={21}
-          amount={1700000}
-          goal={10000000}
-          imageUrl="https://redaksiindonesia.com/wp-content/uploads/2020/01/Donasi.jpg"
-        />
-        <DonationCard
-          title="Saling membantu untuk indonesia sehat"
-          fundraiserName="KamiBisa"
-          donaturCount={21}
-          amount={1700000}
-          goal={10000000}
-          imageUrl="https://redaksiindonesia.com/wp-content/uploads/2020/01/Donasi.jpg"
-        />
-        <DonationCard
-          title="Saling membantu untuk indonesia sehat"
-          fundraiserName="KamiBisa"
-          donaturCount={21}
-          amount={1700000}
-          goal={10000000}
-          imageUrl="https://redaksiindonesia.com/wp-content/uploads/2020/01/Donasi.jpg"
-        />{' '}
-        <DonationCard
-          title="Saling membantu untuk indonesia sehat"
-          fundraiserName="KamiBisa"
-          donaturCount={21}
-          amount={1700000}
-          goal={10000000}
-          imageUrl="https://redaksiindonesia.com/wp-content/uploads/2020/01/Donasi.jpg"
-        />
+        {donations?.map(donation => (
+          <>
+            <DonationCard
+              title={donation.name}
+              amount={donation.balance}
+              goal={donation.goal}
+              imageUrl={donation.image_url}
+              description={donation.description}
+              id={donation.program_id}
+            />
+          </>
+        ))}
       </HStack>
     </Stack>
   )

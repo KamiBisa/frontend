@@ -1,24 +1,13 @@
 import { Box, Image, Progress, Stack, Tag, Text } from '@chakra-ui/react'
-import React from 'react'
 import { useHistory } from 'react-router-dom'
+import toCurrency from '../utilities/toCurrency'
 
-export default function DonationCard({
-  title,
-  fundraiserName,
-  amount,
-  goal,
-  imageUrl,
-  donaturCount,
-}) {
-  // box with image with placeholder inside
-  var formatter = new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-  })
+export default function DonationCard({ title, amount, goal, imageUrl, id }) {
   const history = useHistory()
   return (
     <Box
-      bg="#f0f0f0"
+      bg="white"
+      color="kamibisa.text"
       fontSize={{ base: 'xs', md: 'md' }}
       shadow="md"
       transition="all 0.3s"
@@ -28,26 +17,32 @@ export default function DonationCard({
       cursor="pointer"
       borderRadius="15px"
       minW="300px"
-      onClick={() => history.push('/donation')}
+      onClick={() => history.push(`/donation/${id}`)}
     >
-      <Box position="relative">
-        <Image src={imageUrl} borderRadius="15px 15px 0 0" />
+      <Stack
+        position="relative"
+        alignItems="center"
+        borderRadius="15px 15px 0 0"
+        p={4}
+      >
+        <Image src={imageUrl} borderRadius="15px 15px 0 0" w={200} h={200} />
         <Tag
           size={{ base: 'xs', md: 'md' }}
           fontSize={{ base: 'xs', md: 'sm' }}
           position="absolute"
           left="2"
           bottom="2"
-          colorScheme="blue"
+          colorScheme="green"
           borderRadius={5}
           p={1}
+          px={3}
         >
-          {donaturCount} Donatur
+          Verified
         </Tag>
-      </Box>
+      </Stack>
       <Box p={3}>
         <Stack spacing={3}>
-          <Stack spacing={1}>
+          <Stack spacing={0.3}>
             <Text fontWeight="bold" noOfLines={2}>
               {title}
             </Text>
@@ -55,13 +50,13 @@ export default function DonationCard({
           <Progress size="sm" value={(amount / goal) * 100} />
           <Stack isInline justifyContent="space-between">
             <Box>
-              <Text fontSize="sm">{formatter.format(amount)}</Text>
+              <Text fontSize="sm">{toCurrency(amount)}</Text>
               <Text fontSize="xs" mt={1}>
                 Donated
               </Text>
             </Box>
             <Box display={{ base: 'none', md: 'block' }}>
-              <Text fontSize="sm">{formatter.format(goal)}</Text>
+              <Text fontSize="sm">{toCurrency(goal)}</Text>
               <Text fontSize="xs" mt={1}>
                 Goal
               </Text>

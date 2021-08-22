@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Checkbox,
   Image,
   Input,
   Modal,
@@ -16,7 +15,8 @@ import {
   Textarea,
   useDisclosure,
 } from '@chakra-ui/react'
-import React from 'react'
+import { useState } from 'react'
+import toCurrency from '../utilities/toCurrency'
 
 export default function GiveDonationPage() {
   const StackBox = props => {
@@ -28,12 +28,8 @@ export default function GiveDonationPage() {
     )
   }
 
-  const [donasi, setDonasi] = React.useState(0)
+  const [donasi, setDonasi] = useState(0)
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const formatter = new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-  })
 
   return (
     <>
@@ -88,7 +84,7 @@ export default function GiveDonationPage() {
         <StackBox spacing={10}>
           <Stack isInline justifyContent="space-between" alignItems="center">
             <Text fontSize="xl">Jumlah Donasi</Text>
-            <Text fontWeight="bold">{formatter.format(donasi)}</Text>
+            <Text fontWeight="bold">{toCurrency(donasi)}</Text>
           </Stack>
         </StackBox>
         <StackBox>

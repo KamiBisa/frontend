@@ -1,9 +1,6 @@
 import {
   Box,
-  Image,
   Text,
-  Stack,
-  Input,
   Menu,
   MenuButton,
   MenuList,
@@ -14,9 +11,24 @@ import {
 import React from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { useHistory } from 'react-router-dom'
+import { getCredentials } from '../utilities/credentials'
+import authService from '../services/authService'
 
 const Navbar = () => {
   const history = useHistory()
+  const credentials = getCredentials()
+  const isLoggedIn = credentials ? true : null
+  const isAuthenticated = () => {
+    if (typeof window == 'undefined') {
+      return false
+    }
+    if (isLoggedIn) {
+      return isLoggedIn
+    } else {
+      return false
+    }
+  }
+
   return (
     <>
       <Box w="100%" h="50px">
@@ -37,7 +49,7 @@ const Navbar = () => {
             fontSize="xl"
             fontWeight="bold"
             onClick={() => history.push('/')}
-            color="blue.500"
+            color="kamibisa.primary"
             cursor="pointer"
           >
             KamiBisa
@@ -62,22 +74,44 @@ const Navbar = () => {
             </Menu>
           </Box>
 
-          <HStack d={{ base: 'none', md: 'flex' }}>
-            <Button
-              variant="ghost"
-              d={{ base: 'none', md: 'block' }}
-              onClick={() => history.push('/login')}
-            >
-              Sign In
-            </Button>
-            <Button
-              variant="ghost"
-              d={{ base: 'none', md: 'block' }}
-              onClick={() => history.push('/register')}
-            >
-              Register
-            </Button>
-          </HStack>
+          {!localStorage.getItem('user') ? (
+            <HStack d={{ base: 'none', md: 'flex' }}>
+              <Button
+                variant="ghost"
+                d={{ base: 'none', md: 'block' }}
+                onClick={() => history.push('/register')}
+              >
+                Register
+              </Button>
+              <Button
+                variant="ghost"
+                d={{ base: 'none', md: 'block' }}
+                onClick={() => history.push('/login')}
+              >
+                Sign In
+              </Button>
+            </HStack>
+          ) : (
+            <HStack d={{ base: 'none', md: 'flex' }}>
+              <Button
+                variant="ghost"
+                d={{ base: 'none', md: 'block' }}
+                onClick={() => history.push('/profile')}
+              >
+                Profile
+              </Button>
+              <Button
+                variant="ghost"
+                d={{ base: 'none', md: 'block' }}
+                onClick={() => {
+                  authService.logout()
+                  history.push('/login')
+                }}
+              >
+                Logout
+              </Button>
+            </HStack>
+          )}
         </Box>
       </Box>
     </>

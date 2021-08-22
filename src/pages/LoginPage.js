@@ -1,28 +1,48 @@
 import {
   Box,
-  Image,
-  Img,
   Text,
-  Stack,
-  UnorderedList,
   Link,
   Input,
   FormControl,
   FormLabel,
   Button,
+  Heading,
+  useToast,
 } from '@chakra-ui/react'
-import { Heading } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import authService from '../services/authService'
 
 const LoginPage = () => {
   const history = useHistory()
+  const toast = useToast()
 
-  const [person, setPerson] = useState({ email: '', password: '' })
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
-  const handleChange = e => {
-    const { name, value } = e.target
-    setPerson({ ...person, [name]: value })
+  const handleSubmit = async () => {
+    await authService.login(username, password).then(res => {
+      if (res.success) {
+        toast({
+          position: 'top',
+          status: 'success',
+          title: 'Success',
+          description: 'Login berhasil!',
+        })
+        if (res.user.role === 'admin') {
+          history.push('/admin')
+        } else {
+          history.push('/profile')
+        }
+      } else {
+        toast({
+          position: 'top',
+          status: 'error',
+          title: 'Error',
+          description: 'Email atau password kamu salah!',
+        })
+      }
+    })
   }
 
   return (
@@ -60,6 +80,7 @@ const LoginPage = () => {
                 fontFamily="sans-serif"
                 fontSize="25px"
                 fontWeight="bold"
+                color="kamibisa.text"
               >
                 Sign In
               </Heading>
@@ -72,16 +93,15 @@ const LoginPage = () => {
               h="160px"
               bgcolor="black"
             >
-              <FormControl id="email" _hover={{ border: 'none' }}>
+              <FormControl _hover={{ border: 'none' }}>
                 <FormLabel htmlFor="email"></FormLabel>
                 <Box marginBottom="10px">
                   <Input
                     type="email"
-                    id="email"
                     name="email"
-                    value={person.email}
-                    onChange={handleChange}
-                    placeholder="email/phone number"
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
+                    placeholder="Username"
                     autoComplete="off"
                   ></Input>
                 </Box>
@@ -89,8 +109,8 @@ const LoginPage = () => {
                   <Input
                     type="password"
                     name="password"
-                    value={person.password}
-                    onChange={handleChange}
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
                     placeholder="Password"
                     autoComplete="off"
                     marginBottom="20px"
@@ -98,7 +118,12 @@ const LoginPage = () => {
                 </Box>
               </FormControl>
               <Box>
-                <Button w="100%" borderRadius="100px">
+                <Button
+                  w="100%"
+                  variant="primary"
+                  borderRadius="10px"
+                  onClick={handleSubmit}
+                >
                   Masuk
                 </Button>
               </Box>
@@ -113,7 +138,7 @@ const LoginPage = () => {
             h="60px"
           >
             <Text>
-              Not have an Account ?{' '}
+              Belum punya akun?{' '}
               <Link
                 src="#"
                 color="#3A99D8"
