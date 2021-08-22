@@ -96,26 +96,42 @@ export default function ProfileBody() {
               shadow="sm"
               p={4}
               borderRadius="10px"
-              cursor="pointer"
-              onClick={
-                campaign.is_verified
-                  ? () => historyLink.push(`/donation/${campaign.program_id}`)
-                  : () =>
-                      toast({
-                        position: 'top',
-                        status: 'warning',
-                        description: 'Campaign ini belum diverifikasi!',
-                      })
-              }
             >
               <Stack>
-                <Text fontSize="xl">{campaign.name}</Text>
+                <Text
+                  fontSize="xl"
+                  cursor="pointer"
+                  onClick={
+                    campaign.is_verified
+                      ? () =>
+                          historyLink.push(`/donation/${campaign.program_id}`)
+                      : () =>
+                          toast({
+                            position: 'top',
+                            status: 'warning',
+                            description: 'Campaign ini belum diverifikasi!',
+                          })
+                  }
+                >
+                  {campaign.name}
+                </Text>
               </Stack>
               <Text>
                 {campaign.is_verified === null ? (
                   <Tag colorScheme="yellow">Dalam proses verifikasi</Tag>
                 ) : campaign.is_verified ? (
-                  <Tag colorScheme="green">Terverifikasi</Tag>
+                  <Stack isInline>
+                    <Tag colorScheme="green">Terverifikasi</Tag>
+                    <Tag
+                      colorScheme="blue"
+                      cursor="pointer"
+                      onClick={() =>
+                        handleWithdrawal(campaign.program_id, campaign.balance)
+                      }
+                    >
+                      Withdraw
+                    </Tag>
+                  </Stack>
                 ) : (
                   (<Tag colorScheme="red">Campaign Ditolak</Tag>: '')
                 )}
@@ -141,6 +157,18 @@ export default function ProfileBody() {
       <CampaignModal isOpen={isOpen} onClose={onClose} />
     </>
   )
+
+  const handleWithdrawal = id => {
+    donationService.requestWithdrawal(id).then(data => {
+      if (data) {
+        toast({
+          position: 'top',
+          status: 'success',
+          description: 'Berhasil withdraw!',
+        })
+      }
+    })
+  }
 
   return (
     <Stack px={{ base: 10, md: '10vw' }} py={10}>

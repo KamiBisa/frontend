@@ -76,6 +76,29 @@ class donationService {
       })
       .catch(err => err.response.data)
   }
+
+  async requestWithdrawal(id) {
+    const { token } = getCredentials()
+    return axios
+      .post(
+        process.env.REACT_APP_API_URL +
+          `/api/withdrawal/postWithdrawDonationProgram/${id}`,
+        {
+          amount: 100000,
+        },
+        {
+          headers: { authorization: `Bearer ${token}` },
+        }
+      )
+      .then(res => {
+        console.log(res.data)
+        return res
+      })
+      .catch(err => {
+        console.log(err.response.data)
+        return err.response.data
+      })
+  }
 }
 
 export default new donationService()

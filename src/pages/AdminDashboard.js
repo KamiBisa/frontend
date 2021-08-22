@@ -56,7 +56,7 @@ export default function AdminDashboard() {
       })
     } else if (type === 'withdrawal') {
       adminService.acceptWithdrawalRequest(id).then(res => {
-        if (res.status === 200) {
+        if (res.message) {
           toast({
             status: 'success',
             title: 'Withdrawal terverifikasi!',
@@ -65,6 +65,7 @@ export default function AdminDashboard() {
         }
       })
     }
+    window.location.reload()
   }
 
   const handleReject = id => {
@@ -90,7 +91,7 @@ export default function AdminDashboard() {
       })
     } else if (type === 'withdrawal') {
       adminService.rejectWithdrawalRequest(id).then(res => {
-        if (res.status === 200) {
+        if (res.message) {
           toast({
             status: 'success',
             title: 'Success!',
@@ -99,6 +100,7 @@ export default function AdminDashboard() {
         }
       })
     }
+    window.location.reload()
   }
 
   return (
@@ -146,7 +148,7 @@ export default function AdminDashboard() {
               </Tr>
             </Thead>
             <Tbody>
-              {data.map((e, index) => (
+              {data?.map((e, index) => (
                 <Tr key={index}>
                   <Td>{index + 1}</Td>
                   <Td>
